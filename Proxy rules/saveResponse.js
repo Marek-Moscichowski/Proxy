@@ -21,7 +21,8 @@ module.exports = {
 		console.log("full = " + request.requestOptions.hostname + " " + request.requestOptions.path)
 		mkdirp(fullPath, function(err) { 
 			var fs = require('fs');
-			fs.writeFile(fullPath + "/mock.json", response.body.toString('utf8'), function(err) {
+			var json = JSON.parse(response.body.toString('utf8'))
+			fs.writeFile(fullPath + "/mock.json", JSON.stringify(json, null, 4), function(err) {
       		if(err) {
         		return console.log(err);
       		}
@@ -31,6 +32,10 @@ module.exports = {
 		console.log("inside bitch")
     	// path exists unless there was an error
 	});
+	},
+	savedResponse(path) {
+		var fs = require('fs');
+		fs.readFileSync("request");
 	}
 }
 
