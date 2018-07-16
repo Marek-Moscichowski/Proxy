@@ -21,8 +21,15 @@ module.exports = {
 		console.log("full = " + request.requestOptions.hostname + " " + request.requestOptions.path)
 		mkdirp(fullPath, function(err) { 
 			var fs = require('fs');
+			var output
+			try {
+				var json = JSON.parse(response.body.toString('utf8'))
+				output = JSON.stringify(json, null, 4)
+    		} catch(e) {
+    			output = response.body.toString('utf8')
+    		}
 			var json = JSON.parse(response.body.toString('utf8'))
-			fs.writeFile(fullPath + "/mock.json", JSON.stringify(json, null, 4), function(err) {
+			fs.writeFile(fullPath + "/mock.json", output, function(err) {
       		if(err) {
         		return console.log(err);
       		}
@@ -37,6 +44,7 @@ module.exports = {
 		var fs = require('fs');
 		fs.readFileSync("request");
 	}
+
 }
 
 console.log("gogo")

@@ -36,5 +36,10 @@ return log
 
       		console.log("The file was saved!");
       	});
-	}
+	},
+
+    getQueryParams(url) {
+        return url.split("?")[1].split("&")
+    }   
+
 }
